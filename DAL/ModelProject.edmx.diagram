@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ea7c6c2fda054b768740b3524b9099a1" Name="Diagram1">
+        <EntityTypeShape EntityType="ashavatAvedaModel.Category" Width="1.5" PointX="3.5" PointY="4.125" />
+        <EntityTypeShape EntityType="ashavatAvedaModel.Matching" Width="1.5" PointX="8.625" PointY="4" />
+        <EntityTypeShape EntityType="ashavatAvedaModel.ParameteOfProduct" Width="1.5" PointX="8.625" PointY="6.875" />
+        <EntityTypeShape EntityType="ashavatAvedaModel.Parameter" Width="1.5" PointX="6.375" PointY="9.125" />
+        <EntityTypeShape EntityType="ashavatAvedaModel.Product" Width="1.5" PointX="6.625" PointY="2.875" />
+        <EntityTypeShape EntityType="ashavatAvedaModel.Role" Width="1.5" PointX="3.875" PointY="10.75" />
+        <EntityTypeShape EntityType="ashavatAvedaModel.sysdiagram" Width="1.5" PointX="11.125" PointY="2.125" />
+        <EntityTypeShape EntityType="ashavatAvedaModel.User" Width="1.5" PointX="4.125" PointY="0.5" />
+        <AssociationConnector Association="ashavatAvedaModel.FK_parameters_categories" />
+        <AssociationConnector Association="ashavatAvedaModel.FK_products_categories" />
+        <AssociationConnector Association="ashavatAvedaModel.FK_Matchings_products" />
+        <AssociationConnector Association="ashavatAvedaModel.FK_Matchings_products1" />
+        <AssociationConnector Association="ashavatAvedaModel.FK_ParameteOfProduct_parameters" />
+        <AssociationConnector Association="ashavatAvedaModel.FK_ParameteOfProduct_products" />
+        <AssociationConnector Association="ashavatAvedaModel.FK_products_users" />
+        <AssociationConnector Association="ashavatAvedaModel.FK_users_Roles" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
