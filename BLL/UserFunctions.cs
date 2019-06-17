@@ -75,22 +75,22 @@ namespace BLL
 
         }
         //פונקציה שמוסיפה משתמש או מוקדן
-        //public static DTO.UserDTO AddMokdanOrUser(DTO.UserDTO user)
-        //{
-        //    DAL.User u1 = BLL.Convertions.UserDtoToDAL(user);
-        //    if (Login(u1.UserRecognizeName, u1.UserPassword) == null)
-        //    {
-        //        u1.RoleId = 3;
-        //        db.Users.Add(u1);
-        //        db.SaveChanges();
-        //        return BLL.Convertions.UserToDto(u1);
+        public static DTO.UserDTO AddMokdanOrUser(DTO.UserDTO user)
+        {
+            DAL.User u1 = BLL.Convertions.UserDtoToDAL(user);
+            if (Login(u1.UserPhone) == null)
+            {
+                //u1.RoleId = 3;
+                db.Users.Add(u1);
+                db.SaveChanges();
+                return BLL.Convertions.UserToDto(u1);
 
-        //    }
-        //    else
-        //    {
-        //        return null;
-        //    }
+            }
+            else
+            {
+                return null;
+            }
 
-        //}
+        }
     }
 }
