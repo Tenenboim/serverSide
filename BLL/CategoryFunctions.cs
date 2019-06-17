@@ -24,16 +24,16 @@ namespace BLL
             return categories;
         }
         //פןנקציה שמחזירה את כל תתי הקטגוריות
-        public static List<DTO.CategoryDTO> getSubCategories(int categoryId)
-        {
+        //public static List<DTO.CategoryDTO> getSubCategories(int categoryId)
+        //{
 
 
-            List<DTO.CategoryDTO> categories = new List<CategoryDTO>();
-            foreach (var item in db.Categories.Where(c=>c.ParentId==categoryId).ToList())
-            {
-                categories.Add(BLL.Convertions.CategoryToDto(item));
-            }
-            return categories;
-        }
+        //    List<DTO.CategoryDTO> categories = new List<CategoryDTO>();
+        //    foreach (var item in db.Categories.Where(c=>c.ParentId==categoryId).ToList())
+        //    {
+        //        categories.Add(BLL.Convertions.CategoryToDto(item));
+        //    }
+        //    return categories;
+        //}
     }
 }

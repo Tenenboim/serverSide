@@ -52,6 +52,8 @@
     <Compile Include="CategoryFunctions.cs" />
     <Compile Include="functions.cs" />
     <Compile Include="Convertions.cs" />
+    <Compile Include="ParameterFunctions.cs" />
+    <Compile Include="ProductFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserFunctions.cs" />
   </ItemGroup>
