@@ -18,11 +18,12 @@ namespace WebService.Controllers
         {
             return BLL.CategoryFunctions.getAllCategories();
         }
-        [Route("getSubCategories/{categoryId}")]
-        [HttpGet]
-        public  List<CategoryDTO> getSubCategories(int categoryId)
-        {
-            return BLL.CategoryFunctions.getSubCategories(categoryId);
-        }
+        //[Route("getSubCategories/{categoryId}")]
+        //[HttpGet]
+        //public  List<CategoryDTO> getSubCategories(int categoryId)
+        //{
+        //    return BLL.CategoryFunctions.getSubCategories(categoryId);
+        //}
     }
 }
+
