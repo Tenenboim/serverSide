@@ -1,9 +1,9 @@
-﻿using DAL;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL;
 using DTO;
 namespace BLL
 {
@@ -42,8 +42,8 @@ namespace BLL
         {
             return new Role
             {
-                  RoleId=r.RoleId,
-                   RoleName=r.RoleName
+                RoleId = r.RoleId,
+                RoleName = r.RoleName
             };
         }
         public static RoleDTO RoleToDto(Role r)
@@ -65,11 +65,11 @@ namespace BLL
                 CategoryId = p.CategoryId,
                 AddressPointX = p.AddressPointX,
                 AddressPointY = p.AddressPointY,
-                AddressDescription=p.AddressDescription,
+                AddressDescription = p.AddressDescription,
                 DateFound = p.DateFound,
                 LostOrFound = p.LostOrFound,
                 WasDone = p.WasDone,
-                CleverAgent=p.CleverAgent
+                CleverAgent = p.CleverAgent
             };
         }
 
@@ -114,9 +114,9 @@ namespace BLL
         {
             return new ParameteOfProduct
             {
-                 ParameterId=p.ParameterId,
-                 ProductId=p.ProductId,
-                  Value=p.Value
+                ParameterId = p.ParameterId,
+                ProductId = p.ProductId,
+                Value = p.Value
             };
         }
 
@@ -133,9 +133,9 @@ namespace BLL
         {
             return new Matching
             {
-                LostProductId=m.LostProductId,
-                FindProductId =m.FindProductId,
-                Relevant =m.Relevant
+                LostProductId = m.LostProductId,
+                FindProductId = m.FindProductId,
+                Relevant = m.Relevant
             };
         }
 

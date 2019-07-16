@@ -47,9 +47,10 @@ namespace WebService.Controllers
         //UpdateEditUser
         [Route("UpdateEditUser")]
         [HttpPost]
-        public void UpdateEditUser(UserDTO user)
+        public UserDTO UpdateEditUser(UserDTO user)
         {
-            BLL.UserFunctions.UpdateEditUser(user);
+            UserDTO u= BLL.UserFunctions.UpdateEditUser(user);
+            return u;
         }
         //AddMokdanOrUser
         [Route ("AddMokdanOrUser")]

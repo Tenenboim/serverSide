@@ -14,8 +14,6 @@ namespace BLL
         //פןנקציה שמחזירה את כל הקטגוריות
         public static List<DTO.CategoryDTO> getAllCategories()
         {
-
-           
             List<DTO.CategoryDTO> categories =new List<CategoryDTO>();
             foreach(var item in db.Categories.ToList())
             {
@@ -35,5 +33,25 @@ namespace BLL
         //    }
         //    return categories;
         //}
+
+        //פונקצית הוספת קטגוריה(רק למנהל ניתנת אפשרות)ז
+        public static DTO.CategoryDTO AddCategory(DTO.CategoryDTO category)
+        {
+            DAL.Category c1 = BLL.Convertions.CategoryDtoToDAL(category);
+            DAL.Category c2 = db.Categories.FirstOrDefault(c => c.CategoryName == c1.CategoryName);
+            if (c2 == null)
+            {
+               
+                db.Categories.Add(c1);
+                db.SaveChanges();
+                return BLL.Convertions.CategoryToDto(c1);
+
+            }
+            else
+            {
+                return null;
+            }
+
+        }
     }
 }

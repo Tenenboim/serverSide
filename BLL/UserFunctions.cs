@@ -57,7 +57,7 @@ namespace BLL
             return null;
         }
         //פונקציה ששומרת את השינויים על עריכת משתמש
-       public static void UpdateEditUser(DTO.UserDTO user)
+       public static UserDTO UpdateEditUser(DTO.UserDTO user)
         {
             DAL.User u1 = BLL.Convertions.UserDtoToDAL(user);
            DAL.User u2 = db.Users.FirstOrDefault(u => u.UserId == u1.UserId);
@@ -71,8 +71,9 @@ namespace BLL
             u2.UserAddress = u1.UserAddress;
             u2.RoleId = u1.RoleId;
             db.SaveChanges();
+                return BLL.Convertions.UserToDto(u2);
             }
-
+            return BLL.Convertions.UserToDto(u1);
         }
         //פונקציה שמוסיפה משתמש או מוקדן
         public static DTO.UserDTO AddMokdanOrUser(DTO.UserDTO user)

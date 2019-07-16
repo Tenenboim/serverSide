@@ -50,9 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoryFunctions.cs" />
-    <Compile Include="functions.cs" />
     <Compile Include="Convertions.cs" />
+    <Compile Include="customClasses\ParametersWithParametersOfProducts.cs" />
+    <Compile Include="functions.cs" />
     <Compile Include="ParameterFunctions.cs" />
+    <Compile Include="ParametersWithValues.cs" />
     <Compile Include="ProductFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserFunctions.cs" />

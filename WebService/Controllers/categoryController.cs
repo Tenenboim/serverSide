@@ -24,6 +24,17 @@ namespace WebService.Controllers
         //{
         //    return BLL.CategoryFunctions.getSubCategories(categoryId);
         //}
+
+        //AddCategory
+        [Route("AddCategory")]
+        [HttpPost]
+        public IHttpActionResult AddCategory(CategoryDTO category)
+        {
+            CategoryDTO c = BLL.CategoryFunctions.AddCategory(category);
+            if (c != null)
+                return Ok(c);
+            return BadRequest("the category is already exist!");
+        }
     }
 }
 
