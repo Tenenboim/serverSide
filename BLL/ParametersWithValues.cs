@@ -9,7 +9,6 @@ using DAL;
 namespace BLL
 {
     public class ParametersWithValues
-        //parameterId,parameterName,value,categoryId פונקציה שמחזירה את כל הפרמטרים הקשורים למוצר כולל 
     {
         public static List<customClasses.ParametersWithParametersOfProducts> getParametersWithValue(int productID)
         {

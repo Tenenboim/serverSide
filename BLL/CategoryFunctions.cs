@@ -45,7 +45,7 @@ namespace BLL
         //    return categories;
         //}
 
-        //פונקצית הוספת קטגוריה(רק למנהל ניתנת אפשרות)זו
+        //פונקצית הוספת קטגוריה(רק למנהל ניתנת אפשרות)ז
         public static DTO.CategoryDTO AddCategory(DTO.CategoryDTO category)
         {
             DAL.Category c1 = BLL.Convertions.CategoryDtoToDAL(category);

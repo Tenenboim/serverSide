@@ -104,7 +104,7 @@ namespace BLL
             {
                 NewParameterOfProductDAL.Add(BLL.Convertions.ParameterOfProductDtoToDAL(item));
             }
-            //========================
+            
 
             //parametersOfCategoryWithParametersOfProduct בדיקה האם יש נתונים באוביקט
             //parametersOfCategoryWithParametersOfProduct שנמצאים ב parameteOfProduct כלומר האם לא שינו את הקטגוריה של הפריט ולכן צריך רק לעדכן את הערכים של ה 
@@ -262,6 +262,20 @@ namespace BLL
             string responseFromServer = reader.ReadToEnd();
 
             response.Close();
+        }
+        //פונקציה שמחזירה את האבדות של המשתמש שקיבלה 
+        public static List<DTO.ProductDTO> getLosts(int userId)
+        {
+            List<DTO.ProductDTO> losts = new List<ProductDTO>();
+            db.Products.Where(p => !p.WasDone && p.UserId == userId && p.LostOrFound).ToList().ForEach(d => losts.Add(BLL.Convertions.ProductToDto(d)));
+            return losts;
+        }
+        //פונקציה שמחזירה את המציאות של המשתמש שקיבלה 
+        public static List<DTO.ProductDTO> getFounds(int userId)
+        {
+            List<DTO.ProductDTO> founds = new List<ProductDTO>();
+            db.Products.Where(p => !p.WasDone && p.UserId == userId && !p.LostOrFound).ToList().ForEach(d => founds.Add(BLL.Convertions.ProductToDto(d)));
+            return founds;
         }
     }
 }
