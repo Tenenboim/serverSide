@@ -15,14 +15,25 @@ namespace WebService.Controllers
     {
         //Login
         [Route("Login")]
-        [HttpGet]
-        public IHttpActionResult Login(string UserPhone)
+        [HttpPost]
+        public IHttpActionResult Login(UserDTO User)
         {
-            UserDTO u = BLL.UserFunctions.Login(UserPhone);
+            UserDTO u = BLL.UserFunctions.Login(User.UserPhone, User.UserPassword);
             if (u != null)
                 return Ok(u);
             return BadRequest("the user isnt exist!");
         }
+        //Login
+        [Route("getUserbyId")]
+        [HttpGet]
+        public IHttpActionResult getUserbyId(int userId)
+        {
+            UserDTO u = BLL.UserFunctions.getUserbyId(userId);
+            if (u != null)
+                return Ok(u);
+            return BadRequest("the user isnt exist!");
+        }
+        
         //Register
         [Route("Register")]
         [HttpPost]
@@ -47,9 +58,10 @@ namespace WebService.Controllers
         //UpdateEditUser
         [Route("UpdateEditUser")]
         [HttpPost]
-        public void UpdateEditUser(UserDTO user)
+        public UserDTO UpdateEditUser(UserDTO user)
         {
-            BLL.UserFunctions.UpdateEditUser(user);
+            UserDTO u= BLL.UserFunctions.UpdateEditUser(user);
+            return u;
         }
         //AddMokdanOrUser
         [Route ("AddMokdanOrUser")]

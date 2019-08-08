@@ -30,5 +30,63 @@ namespace WebService.Controllers
             string result = BLL.ProductFunctions.FunctionsToaddNewProduct(product, ParameterOfProductAreExist, NewParameters, NewParameterOfProduct);
             return Ok(result);
         }
+        [Route("EditProduct")]
+        [HttpPost]
+        public IHttpActionResult EditProduct([FromBody] JObject dynamicObj)
+
+        {
+
+            List<BLL.customClasses.ParametersWithParametersOfProducts> parametersOfCategoryWithParametersOfProduct = dynamicObj["parametersOfCategoryWithParametersOfProduct"].ToObject<List<BLL.customClasses.ParametersWithParametersOfProducts>>();
+            DTO.ProductDTO product = dynamicObj["product"].ToObject<ProductDTO>();
+            List<DTO.ParameterOfProductDTO> ParameterOfProductAreExist = dynamicObj["ParameterOfProductAreExist"].ToObject<List<ParameterOfProductDTO>>();
+            List<DTO.ParameterDTO> NewParameters = dynamicObj["NewParameters"].ToObject<List<ParameterDTO>>();
+          
+            List<DTO.ParameterOfProductDTO> NewParameterOfProduct = dynamicObj["NewParameterOfProduct"].ToObject<List<ParameterOfProductDTO>>();
+            product = BLL.ProductFunctions.FunctionsToEditProduct(product, ParameterOfProductAreExist, NewParameters, NewParameterOfProduct, parametersOfCategoryWithParametersOfProduct);
+            if(product!=null)
+            return Ok(product);
+            return BadRequest("Edit Product failed");
+        }
+        [Route("getProduct")]
+        [HttpGet]
+        public IHttpActionResult getProduct(int ProductId)
+        {
+           ProductDTO u = BLL.ProductFunctions.getProduct(ProductId);
+            if (u != null)
+                return Ok(u);
+            return BadRequest("the product wasn't found!"); ;
+        }
+        //getLosts
+        [Route("getLosts")]
+        [HttpGet]
+        public IHttpActionResult getLosts(int userId)
+        {
+            List<ProductDTO> u = BLL.ProductFunctions.getLosts(userId);
+            if (u != null)
+                return Ok(u);
+            return BadRequest("there aren't losts!"); ;
+        }
+        //getFounds
+        [Route("getFounds")]
+        [HttpGet]
+        public IHttpActionResult getFounds(int userId)
+        {
+            List<ProductDTO> u = BLL.ProductFunctions.getFounds(userId);
+            if (u != null)
+                return Ok(u);
+            return BadRequest("there aren't Founds!"); ;
+        }
+
+    
+        [Route("getParametersWithValue/{productID}")]
+        [HttpGet]
+        public IHttpActionResult getParametersWithValue(int productID)
+        {
+            List<BLL.customClasses.ParametersWithParametersOfProducts> u = BLL.ParametersWithValues.getParametersWithValue(productID);
+            if (u != null)
+                return Ok(u);
+            return BadRequest("there aren't Founds!"); ;
+        }
+
     }
 }
