@@ -56,7 +56,6 @@ namespace BLL
             }
 
         }
-
         public static DTO.CategoryDTO editCategory(int CategoryId,string CategoryName)
         {
             DAL.Category c = db.Categories.FirstOrDefault(t => t.CategoryId == CategoryId);

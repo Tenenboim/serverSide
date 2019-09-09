@@ -122,7 +122,7 @@ namespace BLL
             {
                 NewParameterOfProductDAL.Add(BLL.Convertions.ParameterOfProductDtoToDAL(item));
             }
-            //========================
+            
 
             //parametersOfCategoryWithParametersOfProduct בדיקה האם יש נתונים באוביקט
             //parametersOfCategoryWithParametersOfProduct שנמצאים ב parameteOfProduct כלומר האם לא שינו את הקטגוריה של הפריט ולכן צריך רק לעדכן את הערכים של ה 

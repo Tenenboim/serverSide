@@ -75,14 +75,14 @@ namespace BLL
             
             if (u2!=null)
             {
-                u2.UserPassword = u1.UserPassword;
-                u2.UserPhone = u1.UserPhone;
-                u2.UserRecognizeName = u1.UserRecognizeName;
-                u2.UserFullName = u1.UserFullName;
-                u2.UserEmail = u1.UserEmail;
-                u2.UserAddress = u1.UserAddress;
-                u2.RoleId = u1.RoleId;
-                db.SaveChanges();
+            u2.UserPassword = u1.UserPassword;
+            u2.UserPhone = u1.UserPhone;
+            u2.UserRecognizeName = u1.UserRecognizeName;
+            u2.UserFullName = u1.UserFullName;
+            u2.UserEmail = u1.UserEmail;
+            u2.UserAddress = u1.UserAddress;
+            u2.RoleId = u1.RoleId;
+            db.SaveChanges();
                 return BLL.Convertions.UserToDto(u2);
             }
             return BLL.Convertions.UserToDto(u1);
