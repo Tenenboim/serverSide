@@ -53,57 +53,57 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Category.cs">
-      <DependentUpon>ModelProject.tt</DependentUpon>
+      <DependentUpon>HashavatAveda.tt</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
+    <Compile Include="HashavatAveda.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HashavatAveda.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HashavatAveda.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HashavatAveda.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HashavatAveda.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HashavatAveda.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Matching.cs">
-      <DependentUpon>ModelProject.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelProject.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelProject.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelProject.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelProject.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelProject.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelProject.edmx</DependentUpon>
+      <DependentUpon>HashavatAveda.tt</DependentUpon>
     </Compile>
     <Compile Include="ParameteOfProduct.cs">
-      <DependentUpon>ModelProject.tt</DependentUpon>
+      <DependentUpon>HashavatAveda.tt</DependentUpon>
     </Compile>
     <Compile Include="Parameter.cs">
-      <DependentUpon>ModelProject.tt</DependentUpon>
+      <DependentUpon>HashavatAveda.tt</DependentUpon>
     </Compile>
     <Compile Include="Product.cs">
-      <DependentUpon>ModelProject.tt</DependentUpon>
+      <DependentUpon>HashavatAveda.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs">
-      <DependentUpon>ModelProject.tt</DependentUpon>
+      <DependentUpon>HashavatAveda.tt</DependentUpon>
     </Compile>
     <Compile Include="sysdiagram.cs">
-      <DependentUpon>ModelProject.tt</DependentUpon>
+      <DependentUpon>HashavatAveda.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
-      <DependentUpon>ModelProject.tt</DependentUpon>
+      <DependentUpon>HashavatAveda.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="ModelProject.edmx">
+    <EntityDeploy Include="HashavatAveda.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelProject.Designer.cs</LastGenOutput>
+      <LastGenOutput>HashavatAveda.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="ModelProject.edmx.diagram">
-      <DependentUpon>ModelProject.edmx</DependentUpon>
+    <None Include="HashavatAveda.edmx.diagram">
+      <DependentUpon>HashavatAveda.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -111,15 +111,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ModelProject.Context.tt">
+    <Content Include="HashavatAveda.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelProject.edmx</DependentUpon>
-      <LastGenOutput>ModelProject.Context.cs</LastGenOutput>
+      <DependentUpon>HashavatAveda.edmx</DependentUpon>
+      <LastGenOutput>HashavatAveda.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="ModelProject.tt">
+    <Content Include="HashavatAveda.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelProject.edmx</DependentUpon>
-      <LastGenOutput>ModelProject.cs</LastGenOutput>
+      <DependentUpon>HashavatAveda.edmx</DependentUpon>
+      <LastGenOutput>HashavatAveda.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

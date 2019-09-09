@@ -10,7 +10,8 @@ namespace BLL
 {
     public static class ParameterFunctions
     {
-        static AshavatAvedaEntities db = new AshavatAvedaEntities();
+        static Entities db = new Entities();
+        //static AshavatAvedaEntities db = new AshavatAvedaEntities();
 
         //פונקציה שמחזירה את כל הפרמטרים הקשורים לקוד הקטגוריה שהתקבלה
         //"כולל פרמטרים הקשורים לקטגוריה "כל הקטגוריות
@@ -35,7 +36,11 @@ namespace BLL
             return l1;
         }
 
-        //פונקציה המחזירה את כל הפרמטרים
+       
+        /// <summary>
+        ///  פונקציה המחזירה את כל הפרמטרים למעט הפרמטר שערכו 'כל הפרמטרים'
+        /// </summary>
+        /// <returns> List<ParameterDTO></returns>
         public static List<ParameterDTO> getAllParameters()
         {
             List<DTO.ParameterDTO> parameters = new List<ParameterDTO>();

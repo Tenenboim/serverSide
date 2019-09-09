@@ -56,12 +56,15 @@
   <ItemGroup>
     <Compile Include="CategoryFunctions.cs" />
     <Compile Include="Convertions.cs" />
+    <Compile Include="customClasses\ClassForMatches.cs" />
+    <Compile Include="customClasses\GeographicData.cs" />
     <Compile Include="customClasses\ParametersWithParametersOfProducts.cs" />
     <Compile Include="functions.cs" />
     <Compile Include="ParameterFunctions.cs" />
     <Compile Include="ParametersWithValues.cs" />
     <Compile Include="ProductFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SendEmail.cs" />
     <Compile Include="tryGoogleMap.cs" />
     <Compile Include="UserFunctions.cs" />
   </ItemGroup>

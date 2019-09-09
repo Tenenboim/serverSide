@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'Y:\group 1 תשעט\מושקט שרי\פרויקט גמר\FinalServerSide\DAL\ModelProject.edmx'. 
+﻿// T4 code generation is enabled for model 'Y:\group 1 תשעט\מושקט שרי\פרויקט גמר\serverSide\DAL\HashavatAveda.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

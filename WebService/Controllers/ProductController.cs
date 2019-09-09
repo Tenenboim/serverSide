@@ -27,8 +27,8 @@ namespace WebService.Controllers
             List<DTO.ParameterDTO> NewParameters = productAndListsOfParameters["NewParameters"].ToObject<List<ParameterDTO>>();
 
             List<DTO.ParameterOfProductDTO> NewParameterOfProduct = productAndListsOfParameters["NewParameterOfProduct"].ToObject<List<ParameterOfProductDTO>>();
-            string result = BLL.ProductFunctions.FunctionsToaddNewProduct(product, ParameterOfProductAreExist, NewParameters, NewParameterOfProduct);
-            return Ok(result);
+            int productId = BLL.ProductFunctions.FunctionsToaddNewProduct(product, ParameterOfProductAreExist, NewParameters, NewParameterOfProduct);
+            return Ok(productId);
         }
         [Route("EditProduct")]
         [HttpPost]
@@ -43,8 +43,10 @@ namespace WebService.Controllers
           
             List<DTO.ParameterOfProductDTO> NewParameterOfProduct = dynamicObj["NewParameterOfProduct"].ToObject<List<ParameterOfProductDTO>>();
             product = BLL.ProductFunctions.FunctionsToEditProduct(product, ParameterOfProductAreExist, NewParameters, NewParameterOfProduct, parametersOfCategoryWithParametersOfProduct);
-            if(product!=null)
-            return Ok(product);
+            if (product != null)
+            {
+                return Ok(product.ProductId);
+            }
             return BadRequest("Edit Product failed");
         }
         [Route("getProduct")]
@@ -78,15 +80,6 @@ namespace WebService.Controllers
         }
 
     
-        [Route("getParametersWithValue/{productID}")]
-        [HttpGet]
-        public IHttpActionResult getParametersWithValue(int productID)
-        {
-            List<BLL.customClasses.ParametersWithParametersOfProducts> u = BLL.ParametersWithValues.getParametersWithValue(productID);
-            if (u != null)
-                return Ok(u);
-            return BadRequest("there aren't Founds!"); ;
-        }
-
+        
     }
 }

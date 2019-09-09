@@ -9,15 +9,29 @@ using DAL;
 namespace BLL
 {
     public class ParametersWithValues
-        //parameterId,parameterName,value,categoryId פונקציה שמחזירה את כל הפרמטרים הקשורים למוצר כולל 
     {
-        public static List<customClasses.ParametersWithParametersOfProducts> getParametersWithValue(int productID)
+        /// <summary>
+        /// 
+        /// מסוג מחלקה שיצרתי בעצמי list פונקציה המקבלת קוד מוצר ומחזירה 
+        /// מחלקה המכילה קוד קטגוריה, קוד פרמטר שם פרמטר (ממחלקת פרמטר) וערך הפרמטר 
+        ///parameterOfProduct ממחלקת 
+        ///פונקציה זו נועדה בשביל עריכת מוצר 
+        ///כאשר אני מציגה מוצר למטרת עריכה אני רוצה להציג גם את
+        ///parametrOfProduct הפרמטרים הקשורים למוצר זה (מחלקת פרמטר) וכן את ערכי הפרמטרים שנבחרו (מחלקת 
+        ///לכן בגלל שהערכים נמצאים בשתי טבלאות יצרתי מחלקה חדשה עם הערכים הנצרכים לי להצגה
+        ///וכך הפוקציה מחזירה את כל הפרמרים עם הערכים הקשורים למוצאר שקיבלה
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns>customClasses.ParametersWithParametersOfProducts</returns>
+        public static List<customClasses.ParametersWithParametersOfProducts> 
+            getParametersWithValue(int productID)
         {
             List<Parameter> parametersByCategory;
-            List<customClasses.ParametersWithParametersOfProducts> parametersWithValue = new List<customClasses.ParametersWithParametersOfProducts>();;
+            List<customClasses.ParametersWithParametersOfProducts> parametersWithValue 
+                = new List<customClasses.ParametersWithParametersOfProducts>();
             int categotyID;
 
-            using (AshavatAvedaEntities db = new AshavatAvedaEntities())
+            using (Entities db = new Entities())
             {
                 Product product = db.Products.Find(productID);
 

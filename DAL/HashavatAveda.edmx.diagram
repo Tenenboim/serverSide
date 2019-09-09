@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="65c95422be7d40f3ade4cb6452740560" Name="Diagram1">
+        <EntityTypeShape EntityType="ashavatAvedaModel.Category" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ashavatAvedaModel.Matching" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ashavatAvedaModel.ParameteOfProduct" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ashavatAvedaModel.Parameter" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ashavatAvedaModel.Product" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ashavatAvedaModel.Role" Width="1.5" PointX="1.5" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ashavatAvedaModel.sysdiagram" Width="1.5" PointX="2.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="ashavatAvedaModel.User" Width="1.5" PointX="0.75" PointY="9.625" IsExpanded="true" />
+        <AssociationConnector Association="ashavatAvedaModel.FK_parameters_categories" ManuallyRouted="false" />
+        <AssociationConnector Association="ashavatAvedaModel.FK_products_categories" ManuallyRouted="false" />
+        <AssociationConnector Association="ashavatAvedaModel.FK_Matchings_products" ManuallyRouted="false" />
+        <AssociationConnector Association="ashavatAvedaModel.FK_Matchings_products1" ManuallyRouted="false" />
+        <AssociationConnector Association="ashavatAvedaModel.FK_ParameteOfProduct_parameters" ManuallyRouted="false" />
+        <AssociationConnector Association="ashavatAvedaModel.FK_ParameteOfProduct_products" ManuallyRouted="false" />
+        <AssociationConnector Association="ashavatAvedaModel.FK_products_users" ManuallyRouted="false" />
+        <AssociationConnector Association="ashavatAvedaModel.FK_users_Roles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

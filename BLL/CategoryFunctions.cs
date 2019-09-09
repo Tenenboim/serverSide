@@ -10,10 +10,11 @@ namespace BLL
 {
     public static class CategoryFunctions
     {
-        static AshavatAvedaEntities db = new AshavatAvedaEntities();
-        //פןנקציה שמחזירה את כל הקטגוריות מלבד הקטגוריה ששמה כל הקטגוריות
+        static Entities db = new Entities();
         public static List<DTO.CategoryDTO> getAllCategories()
         {
+            //פןנקציה שמחזירה את כל הקטגוריות מלבד הקטגוריה ששמה כל הקטגוריות
+
             List<DTO.CategoryDTO> categories =new List<CategoryDTO>();
             foreach(var item in db.Categories.ToList())
             {
@@ -22,9 +23,11 @@ namespace BLL
             }
             return categories;
         }
-        //פןנקציה שמחזירה את כל הקטגוריות מיועד עבור הוספת פרמטר חדש עבור המנהל
+
         public static List<DTO.CategoryDTO> getAllAllCategories()
         {
+            //פןנקציה שמחזירה את כל הקטגוריות מיועד עבור הוספת פרמטר חדש עבור המנהל
+
             List<DTO.CategoryDTO> categories = new List<CategoryDTO>();
             foreach (var item in db.Categories.ToList())
             {
@@ -32,22 +35,11 @@ namespace BLL
             }
             return categories;
         }
-        //פןנקציה שמחזירה את כל תתי הקטגוריות
-        //public static List<DTO.CategoryDTO> getSubCategories(int categoryId)
-        //{
-
-
-        //    List<DTO.CategoryDTO> categories = new List<CategoryDTO>();
-        //    foreach (var item in db.Categories.Where(c=>c.ParentId==categoryId).ToList())
-        //    {
-        //        categories.Add(BLL.Convertions.CategoryToDto(item));
-        //    }
-        //    return categories;
-        //}
-
-        //פונקצית הוספת קטגוריה(רק למנהל ניתנת אפשרות)זו
+    
         public static DTO.CategoryDTO AddCategory(DTO.CategoryDTO category)
         {
+            //פונקצית הוספת קטגוריה(רק למנהל ניתנת אפשרות)ז
+
             DAL.Category c1 = BLL.Convertions.CategoryDtoToDAL(category);
             DAL.Category c2 = db.Categories.FirstOrDefault(c => c.CategoryName == c1.CategoryName);
             if (c2 == null)
@@ -64,6 +56,7 @@ namespace BLL
             }
 
         }
+
         public static DTO.CategoryDTO editCategory(int CategoryId,string CategoryName)
         {
             DAL.Category c = db.Categories.FirstOrDefault(t => t.CategoryId == CategoryId);

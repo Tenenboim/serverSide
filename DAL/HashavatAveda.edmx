@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ashavatAvedaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ashavatAvedaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Categories">
           <Key>
             <PropertyRef Name="CategoryId" />
@@ -224,71 +224,20 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ashavatAvedaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="AshavatAvedaEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="sysdiagrams" EntityType="ashavatAvedaModel.sysdiagram" />
-          <EntitySet Name="Categories" EntityType="ashavatAvedaModel.Category" />
-          <EntitySet Name="Matchings" EntityType="ashavatAvedaModel.Matching" />
-          <EntitySet Name="ParameteOfProducts" EntityType="ashavatAvedaModel.ParameteOfProduct" />
-          <EntitySet Name="Parameters" EntityType="ashavatAvedaModel.Parameter" />
-          <EntitySet Name="Products" EntityType="ashavatAvedaModel.Product" />
-          <EntitySet Name="Roles" EntityType="ashavatAvedaModel.Role" />
-          <EntitySet Name="Users" EntityType="ashavatAvedaModel.User" />
-          <AssociationSet Name="FK_parameters_categories" Association="ashavatAvedaModel.FK_parameters_categories">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="Parameter" EntitySet="Parameters" />
-          </AssociationSet>
-          <AssociationSet Name="FK_products_categories" Association="ashavatAvedaModel.FK_products_categories">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="Product" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Matchings_products" Association="ashavatAvedaModel.FK_Matchings_products">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="Matching" EntitySet="Matchings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Matchings_products1" Association="ashavatAvedaModel.FK_Matchings_products1">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="Matching" EntitySet="Matchings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ParameteOfProduct_parameters" Association="ashavatAvedaModel.FK_ParameteOfProduct_parameters">
-            <End Role="Parameter" EntitySet="Parameters" />
-            <End Role="ParameteOfProduct" EntitySet="ParameteOfProducts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ParameteOfProduct_products" Association="ashavatAvedaModel.FK_ParameteOfProduct_products">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="ParameteOfProduct" EntitySet="ParameteOfProducts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_products_users" Association="ashavatAvedaModel.FK_products_users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Product" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK_users_Roles" Association="ashavatAvedaModel.FK_users_Roles">
-            <End Role="Role" EntitySet="Roles" />
-            <End Role="User" EntitySet="Users" />
-          </AssociationSet>
-          </EntityContainer>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CategoryId" />
           </Key>
           <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ParentId" Type="Int32" />
-          <NavigationProperty Name="Parameters" Relationship="ashavatAvedaModel.FK_parameters_categories" FromRole="Category" ToRole="Parameter" />
-          <NavigationProperty Name="Products" Relationship="ashavatAvedaModel.FK_products_categories" FromRole="Category" ToRole="Product" />
+          <NavigationProperty Name="Parameters" Relationship="Self.FK_parameters_categories" FromRole="Categories" ToRole="Parameters" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_products_categories" FromRole="Categories" ToRole="Products" />
         </EntityType>
         <EntityType Name="Matching">
           <Key>
@@ -298,8 +247,8 @@
           <Property Name="LostProductId" Type="Int32" Nullable="false" />
           <Property Name="FindProductId" Type="Int32" Nullable="false" />
           <Property Name="Relevant" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Product" Relationship="ashavatAvedaModel.FK_Matchings_products" FromRole="Matching" ToRole="Product" />
-          <NavigationProperty Name="Product1" Relationship="ashavatAvedaModel.FK_Matchings_products1" FromRole="Matching" ToRole="Product" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Matchings_products" FromRole="Matchings" ToRole="Products" />
+          <NavigationProperty Name="Product1" Relationship="Self.FK_Matchings_products1" FromRole="Matchings" ToRole="Products" />
         </EntityType>
         <EntityType Name="ParameteOfProduct">
           <Key>
@@ -308,19 +257,19 @@
           </Key>
           <Property Name="ParameterId" Type="Int32" Nullable="false" />
           <Property Name="ProductId" Type="Int32" Nullable="false" />
-          <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Parameter" Relationship="ashavatAvedaModel.FK_ParameteOfProduct_parameters" FromRole="ParameteOfProduct" ToRole="Parameter" />
-          <NavigationProperty Name="Product" Relationship="ashavatAvedaModel.FK_ParameteOfProduct_products" FromRole="ParameteOfProduct" ToRole="Product" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Parameter" Relationship="Self.FK_ParameteOfProduct_parameters" FromRole="ParameteOfProduct" ToRole="Parameters" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ParameteOfProduct_products" FromRole="ParameteOfProduct" ToRole="Products" />
         </EntityType>
         <EntityType Name="Parameter">
           <Key>
             <PropertyRef Name="ParameterId" />
           </Key>
           <Property Name="ParameterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ParameterName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ParameterName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CategoryId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Category" Relationship="ashavatAvedaModel.FK_parameters_categories" FromRole="Parameter" ToRole="Category" />
-          <NavigationProperty Name="ParameteOfProducts" Relationship="ashavatAvedaModel.FK_ParameteOfProduct_parameters" FromRole="Parameter" ToRole="ParameteOfProduct" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_parameters_categories" FromRole="Parameters" ToRole="Categories" />
+          <NavigationProperty Name="ParameteOfProducts" Relationship="Self.FK_ParameteOfProduct_parameters" FromRole="Parameters" ToRole="ParameteOfProduct" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -329,7 +278,7 @@
           <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="CategoryId" Type="Int32" Nullable="false" />
-          <Property Name="ProductName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ProductDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AddressPointX" Type="Double" />
           <Property Name="AddressPointY" Type="Double" />
@@ -338,88 +287,98 @@
           <Property Name="LostOrFound" Type="Boolean" Nullable="false" />
           <Property Name="WasDone" Type="Boolean" Nullable="false" />
           <Property Name="CleverAgent" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Category" Relationship="ashavatAvedaModel.FK_products_categories" FromRole="Product" ToRole="Category" />
-          <NavigationProperty Name="Matchings" Relationship="ashavatAvedaModel.FK_Matchings_products" FromRole="Product" ToRole="Matching" />
-          <NavigationProperty Name="Matchings1" Relationship="ashavatAvedaModel.FK_Matchings_products1" FromRole="Product" ToRole="Matching" />
-          <NavigationProperty Name="ParameteOfProducts" Relationship="ashavatAvedaModel.FK_ParameteOfProduct_products" FromRole="Product" ToRole="ParameteOfProduct" />
-          <NavigationProperty Name="User" Relationship="ashavatAvedaModel.FK_products_users" FromRole="Product" ToRole="User" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_products_categories" FromRole="Products" ToRole="Categories" />
+          <NavigationProperty Name="Matchings" Relationship="Self.FK_Matchings_products" FromRole="Products" ToRole="Matchings" />
+          <NavigationProperty Name="Matchings1" Relationship="Self.FK_Matchings_products1" FromRole="Products" ToRole="Matchings" />
+          <NavigationProperty Name="ParameteOfProducts" Relationship="Self.FK_ParameteOfProduct_products" FromRole="Products" ToRole="ParameteOfProduct" />
+          <NavigationProperty Name="User" Relationship="Self.FK_products_users" FromRole="Products" ToRole="Users" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="RoleId" />
           </Key>
           <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Users" Relationship="ashavatAvedaModel.FK_users_Roles" FromRole="Role" ToRole="User" />
+          <Property Name="RoleName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_users_Roles" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserFullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserFullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UserEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UserPhone" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="UserPassword" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="UserRecognizeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserPhone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserRecognizeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="RoleId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Products" Relationship="ashavatAvedaModel.FK_products_users" FromRole="User" ToRole="Product" />
-          <NavigationProperty Name="Role" Relationship="ashavatAvedaModel.FK_users_Roles" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_products_users" FromRole="Users" ToRole="Products" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_users_Roles" FromRole="Users" ToRole="Roles" />
         </EntityType>
         <Association Name="FK_parameters_categories">
-          <End Type="ashavatAvedaModel.Category" Role="Category" Multiplicity="1" />
-          <End Type="ashavatAvedaModel.Parameter" Role="Parameter" Multiplicity="*" />
+          <End Role="Categories" Type="Self.Category" Multiplicity="1" />
+          <End Role="Parameters" Type="Self.Parameter" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Category">
+            <Principal Role="Categories">
               <PropertyRef Name="CategoryId" />
             </Principal>
-            <Dependent Role="Parameter">
+            <Dependent Role="Parameters">
               <PropertyRef Name="CategoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_products_categories">
-          <End Type="ashavatAvedaModel.Category" Role="Category" Multiplicity="1" />
-          <End Type="ashavatAvedaModel.Product" Role="Product" Multiplicity="*" />
+          <End Role="Categories" Type="Self.Category" Multiplicity="1" />
+          <End Role="Products" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Category">
+            <Principal Role="Categories">
               <PropertyRef Name="CategoryId" />
             </Principal>
-            <Dependent Role="Product">
+            <Dependent Role="Products">
               <PropertyRef Name="CategoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Matchings_products">
-          <End Type="ashavatAvedaModel.Product" Role="Product" Multiplicity="1" />
-          <End Type="ashavatAvedaModel.Matching" Role="Matching" Multiplicity="*" />
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="Matchings" Type="Self.Matching" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Product">
+            <Principal Role="Products">
               <PropertyRef Name="ProductId" />
             </Principal>
-            <Dependent Role="Matching">
+            <Dependent Role="Matchings">
               <PropertyRef Name="LostProductId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Matchings_products1">
-          <End Type="ashavatAvedaModel.Product" Role="Product" Multiplicity="1" />
-          <End Type="ashavatAvedaModel.Matching" Role="Matching" Multiplicity="*" />
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="Matchings" Type="Self.Matching" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Product">
+            <Principal Role="Products">
               <PropertyRef Name="ProductId" />
             </Principal>
-            <Dependent Role="Matching">
+            <Dependent Role="Matchings">
               <PropertyRef Name="FindProductId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ParameteOfProduct_parameters">
-          <End Type="ashavatAvedaModel.Parameter" Role="Parameter" Multiplicity="1" />
-          <End Type="ashavatAvedaModel.ParameteOfProduct" Role="ParameteOfProduct" Multiplicity="*" />
+          <End Role="Parameters" Type="Self.Parameter" Multiplicity="1" />
+          <End Role="ParameteOfProduct" Type="Self.ParameteOfProduct" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Parameter">
+            <Principal Role="Parameters">
               <PropertyRef Name="ParameterId" />
             </Principal>
             <Dependent Role="ParameteOfProduct">
@@ -428,10 +387,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ParameteOfProduct_products">
-          <End Type="ashavatAvedaModel.Product" Role="Product" Multiplicity="1" />
-          <End Type="ashavatAvedaModel.ParameteOfProduct" Role="ParameteOfProduct" Multiplicity="*" />
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="ParameteOfProduct" Type="Self.ParameteOfProduct" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Product">
+            <Principal Role="Products">
               <PropertyRef Name="ProductId" />
             </Principal>
             <Dependent Role="ParameteOfProduct">
@@ -440,119 +399,161 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_products_users">
-          <End Type="ashavatAvedaModel.User" Role="User" Multiplicity="1" />
-          <End Type="ashavatAvedaModel.Product" Role="Product" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Products" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="Product">
+            <Dependent Role="Products">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_users_Roles">
-          <End Type="ashavatAvedaModel.Role" Role="Role" Multiplicity="1" />
-          <End Type="ashavatAvedaModel.User" Role="User" Multiplicity="*" />
+          <End Role="Roles" Type="Self.Role" Multiplicity="1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Role">
+            <Principal Role="Roles">
               <PropertyRef Name="RoleId" />
             </Principal>
-            <Dependent Role="User">
+            <Dependent Role="Users">
               <PropertyRef Name="RoleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        </Schema>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Matchings" EntityType="Self.Matching" />
+          <EntitySet Name="ParameteOfProducts" EntityType="Self.ParameteOfProduct" />
+          <EntitySet Name="Parameters" EntityType="Self.Parameter" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_parameters_categories" Association="Self.FK_parameters_categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Parameters" EntitySet="Parameters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_products_categories" Association="Self.FK_products_categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matchings_products" Association="Self.FK_Matchings_products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Matchings" EntitySet="Matchings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matchings_products1" Association="Self.FK_Matchings_products1">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Matchings" EntitySet="Matchings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParameteOfProduct_parameters" Association="Self.FK_ParameteOfProduct_parameters">
+            <End Role="Parameters" EntitySet="Parameters" />
+            <End Role="ParameteOfProduct" EntitySet="ParameteOfProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParameteOfProduct_products" Association="Self.FK_ParameteOfProduct_products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ParameteOfProduct" EntitySet="ParameteOfProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_products_users" Association="Self.FK_products_users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_users_Roles" Association="Self.FK_users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ashavatAvedaModelStoreContainer" CdmEntityContainer="AshavatAvedaEntities">
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="ashavatAvedaModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+        <EntityContainerMapping StorageEntityContainer="ashavatAvedaModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="ashavatAvedaModel.Category">
               <MappingFragment StoreEntitySet="Categories">
-                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
-                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Matchings">
             <EntityTypeMapping TypeName="ashavatAvedaModel.Matching">
               <MappingFragment StoreEntitySet="Matchings">
-                <ScalarProperty Name="Relevant" ColumnName="Relevant" />
-                <ScalarProperty Name="FindProductId" ColumnName="FindProductId" />
                 <ScalarProperty Name="LostProductId" ColumnName="LostProductId" />
+                <ScalarProperty Name="FindProductId" ColumnName="FindProductId" />
+                <ScalarProperty Name="Relevant" ColumnName="Relevant" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ParameteOfProducts">
             <EntityTypeMapping TypeName="ashavatAvedaModel.ParameteOfProduct">
               <MappingFragment StoreEntitySet="ParameteOfProduct">
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="ParameterId" ColumnName="ParameterId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Parameters">
             <EntityTypeMapping TypeName="ashavatAvedaModel.Parameter">
               <MappingFragment StoreEntitySet="Parameters">
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="ParameterName" ColumnName="ParameterName" />
                 <ScalarProperty Name="ParameterId" ColumnName="ParameterId" />
+                <ScalarProperty Name="ParameterName" ColumnName="ParameterName" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="ashavatAvedaModel.Product">
               <MappingFragment StoreEntitySet="Products">
-                <ScalarProperty Name="CleverAgent" ColumnName="CleverAgent" />
-                <ScalarProperty Name="WasDone" ColumnName="WasDone" />
-                <ScalarProperty Name="LostOrFound" ColumnName="LostOrFound" />
-                <ScalarProperty Name="DateFound" ColumnName="DateFound" />
-                <ScalarProperty Name="AddressDescription" ColumnName="AddressDescription" />
-                <ScalarProperty Name="AddressPointY" ColumnName="AddressPointY" />
-                <ScalarProperty Name="AddressPointX" ColumnName="AddressPointX" />
-                <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
-                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+                <ScalarProperty Name="AddressPointX" ColumnName="AddressPointX" />
+                <ScalarProperty Name="AddressPointY" ColumnName="AddressPointY" />
+                <ScalarProperty Name="AddressDescription" ColumnName="AddressDescription" />
+                <ScalarProperty Name="DateFound" ColumnName="DateFound" />
+                <ScalarProperty Name="LostOrFound" ColumnName="LostOrFound" />
+                <ScalarProperty Name="WasDone" ColumnName="WasDone" />
+                <ScalarProperty Name="CleverAgent" ColumnName="CleverAgent" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Roles">
             <EntityTypeMapping TypeName="ashavatAvedaModel.Role">
               <MappingFragment StoreEntitySet="Roles">
-                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ashavatAvedaModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="ashavatAvedaModel.User">
               <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="UserRecognizeName" ColumnName="UserRecognizeName" />
-                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
-                <ScalarProperty Name="UserPhone" ColumnName="UserPhone" />
-                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
-                <ScalarProperty Name="UserAddress" ColumnName="UserAddress" />
-                <ScalarProperty Name="UserFullName" ColumnName="UserFullName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserFullName" ColumnName="UserFullName" />
+                <ScalarProperty Name="UserAddress" ColumnName="UserAddress" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="UserPhone" ColumnName="UserPhone" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserRecognizeName" ColumnName="UserRecognizeName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

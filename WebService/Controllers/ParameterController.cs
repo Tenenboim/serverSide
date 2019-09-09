@@ -44,13 +44,21 @@ namespace WebService.Controllers
         }
         [Route("tryr")]
         [HttpGet]
-        public IHttpActionResult tryr()
+        public IHttpActionResult tryr(double fromX, double fromY, double toX, double toY)
         {
-            var l = trygoogle.GetDistanceAndDuration(32.078899, 34.835156, 32.084932, 34.835226000000034);
+            var l = BLL.ProductFunctions.GetDistanceAndDuration(fromX,fromY,toX,toY);
             if (l != null)
                 return Ok(l);
             return BadRequest("delete parametr failed");
         }
-
+        [Route("getParametersWithValue/{productID}")]
+        [HttpGet]
+        public IHttpActionResult getParametersWithValue(int productID)
+        {
+            List<BLL.customClasses.ParametersWithParametersOfProducts> u = BLL.ParametersWithValues.getParametersWithValue(productID);
+            if (u != null)
+                return Ok(u);
+            return BadRequest("there aren't Founds!"); ;
+        }
     }
 }

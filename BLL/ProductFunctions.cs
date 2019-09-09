@@ -7,18 +7,19 @@ using System.Drawing;
 using System.Net;
 using System.IO;
 using System;
+using System.Web.Script.Serialization;
 
 namespace BLL
 {
 
     public static class ProductFunctions
     {
-        static AshavatAvedaEntities db = new AshavatAvedaEntities();
-        public static string FunctionsToaddNewProduct(DTO.ProductDTO productdDto
+        static Entities db = new Entities();
+     
+        public static int FunctionsToaddNewProduct(DTO.ProductDTO productdDto
             , List<DTO.ParameterOfProductDTO> ParameterOfProductAreExistDto,
             List<DTO.ParameterDTO> NewParametersDto,
             List<DTO.ParameterOfProductDTO> NewParameterOfProductDto)
-
 
         {
             DAL.Product productdDAL = BLL.Convertions.ProductDtoToDAL(productdDto);
@@ -38,15 +39,27 @@ namespace BLL
             {
                 NewParameterOfProductDAL.Add(BLL.Convertions.ParameterOfProductDtoToDAL(item));
             }
-            //ID של המוצר החדש שמוסיפים
+            //DB שליחה לפונקציה שמוסיפה את המוצר ל
             addNewProduct(productdDAL);
+
+            //של המוצר שהוספנו ID קבלת ה
             int productId = productdDAL.ProductId;
+
+            //שליחה לפונקציה שמוסיפה רשומות לטבלת פרמטרים למוצר
+            //אלו בעצם פרמטרים הקיימים כבר בטבלת פרמטרים 
+            //כלומר שם הפרמטר קוד קטגוריה וכו' כבר קיים
+            //ועכשיו אני יוצרת קשר בין הפרמטר מטבלת פרמטרים למוצר מטבלת מוצרים
+            //ParameterOfProduct ע"י הוספת רשומות לטבלת הקשר 
             AddParameterOfProductAreExist(ParameterOfProductAreExistDAL, productId);
+
+            //שליחה לפונקציה המוסיפה פרמטרים חדשים לטבלת פרמטר
+            //parameterOfProduct וכן מוסיפה רשומות חדשות לטבלת 
             AddNewParametersAndNewParametersOfProduct(NewParametersDAL, NewParameterOfProductDAL, productId);
-            return "exellent!";
+            return productId;
         }
         //הוספת פרמטרים חדשים לטבלת פרמטרים וכן לטבלת פרמטרים למוצר 
-        private static void AddNewParametersAndNewParametersOfProduct(List<Parameter> newParametersDAL, List<ParameteOfProduct> newParameterOfProductDAL, int productId)
+        private static void AddNewParametersAndNewParametersOfProduct(List<Parameter> newParametersDAL,
+            List<ParameteOfProduct> newParameterOfProductDAL, int productId)
         {
             for (int i = 0; i < newParametersDAL.Count(); i++)
             {
@@ -69,7 +82,9 @@ namespace BLL
 
 
         //value,productId הוספה לטבלת פרמטרים למוצר את הפרמטרים שהיו כבר קיימים כלומר חדש רק ה 
-        private static void AddParameterOfProductAreExist(List<ParameteOfProduct> parameterOfProductAreExistDAL, int productId)
+        private static void AddParameterOfProductAreExist(List<ParameteOfProduct> 
+            parameterOfProductAreExistDAL,
+            int productId)
         {
             foreach (var item in parameterOfProductAreExistDAL)
             {
@@ -89,7 +104,10 @@ namespace BLL
             db.SaveChanges();
 
         }
-        public static ProductDTO FunctionsToEditProduct(ProductDTO product, List<ParameterOfProductDTO> parameterOfProductAreExist, List<ParameterDTO> newParameters, List<ParameterOfProductDTO> newParameterOfProduct, List<ParametersWithParametersOfProducts> parametersOfCategoryWithParametersOfProduct)
+        public static ProductDTO FunctionsToEditProduct(ProductDTO product, List<ParameterOfProductDTO> 
+            parameterOfProductAreExist,
+            List<ParameterDTO> newParameters, List<ParameterOfProductDTO> newParameterOfProduct,
+            List<ParametersWithParametersOfProducts> parametersOfCategoryWithParametersOfProduct)
         {
             product = UpdateEditProduct(product);
             List<DAL.Parameter> NewParametersDAL = new List<Parameter>();
@@ -134,7 +152,8 @@ namespace BLL
         //שלהם value  עריכת הפרמטרים של המוצר בעצם עריכת ה
         //נערך מחדש value אלו פרמטרים של מוצר שהוכנסו כבר קודם ועכשיו ה
         //הם נמצאים באוביקט מטיפוס של מחלקה שיצרתי המכילה קוד קטגוריה קוד פרמטר שם פרמטר וערך הפרמטר
-        private static void EditParametersOfCategoryWithParametersOfProduct(List<ParametersWithParametersOfProducts> parametersOfCategoryWithParametersOfProduct, int productId)
+        private static void EditParametersOfCategoryWithParametersOfProduct(List<ParametersWithParametersOfProducts> 
+            parametersOfCategoryWithParametersOfProduct, int productId)
         {
             //מהפרמטרים הקשורים למוצר שנערך כרגע parameterOfProduct ריקון טבלת 
             deleteItemsFromParametersOfProductTable(productId);
@@ -174,6 +193,7 @@ namespace BLL
             }
             return BLL.Convertions.ProductToDto(u1);
         }
+
         //מחזירה את כל האבדות  userId==0 פונקציה שמחזירה את האבדות של המשתמש שקיבלה אם ה
         public static List<DTO.ProductDTO> getLosts(int userId)
         {
@@ -184,6 +204,7 @@ namespace BLL
                 db.Products.Where(p => !p.WasDone && p.UserId == userId && p.LostOrFound).ToList().ForEach(d => losts.Add(BLL.Convertions.ProductToDto(d)));
             return losts;
         }
+
         //מחזירה את כל המציאות userId==0 פונקציה שמחזירה את המציאות של המשתמש שקיבלה אם ה
         public static List<DTO.ProductDTO> getFounds(int userId)
         {
@@ -194,21 +215,98 @@ namespace BLL
                 db.Products.Where(p => !p.WasDone && p.UserId == userId && !p.LostOrFound).ToList().ForEach(d => founds.Add(BLL.Convertions.ProductToDto(d)));
             return founds;
         }
-        public static List<DTO.ProductDTO> search(int productId)
+
+
+        /// <summary>
+        /// פונקציה המוצאת התאמות למוצר שקיבלה את הקוד שלו
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns>List<BLL.customClasses.ClassForMatches></returns>
+        public static List<BLL.customClasses.ClassForMatches> search(int productId)
         {
             DAL.Product product = db.Products.FirstOrDefault(p => p.ProductId == productId);
-            List<DAL.Product> matches = new List<DAL.Product>();
+            List<DAL.Product> matchesDAL = new List<Product>();
+            List<BLL.customClasses.ClassForMatches> matches = new List<BLL.customClasses.ClassForMatches>();
             db.Products.Where(p =>
-            p.ProductId != product.ProductId &&
-            !p.WasDone && p.CategoryId == product.CategoryId &&
+
+            //בדיקה שהחפץ פעיל
+            !p.WasDone &&
+            
+            //בדיקה שהקטגוריות שוות
+            p.CategoryId == product.CategoryId &&
+
+            //בדיקה שהחפץ הפוך מהחפץ שקיבלנו את הקוד שלו כלומר שיהיה
+            //אבידה=מציאה ולא מציאה=מציאה / אבידה=אבידה 
             p.LostOrFound != product.LostOrFound &&
-            (product.LostOrFound && product.DateFound < p.DateFound || !product.LostOrFound && product.DateFound > p.DateFound) &&
-           ((product.AddressDescription == null && p.AddressDescription == null) || product.AddressDescription != null) &&
+
+            //בדיקה שתאריך האבידה לפני תאריך המציאה
+            (product.LostOrFound && product.DateFound < p.DateFound ||
+            !product.LostOrFound && product.DateFound > p.DateFound) &&
+
+            //בדיקה שלשתי החפצים יש תאור על כתובת האבידה/מציאה
+           ((product.AddressDescription != null && p.AddressDescription != null) ||
+
+           // או שלשתי החפצים נשמרו הנקודות על המפה
+           product.AddressPointX != null&&p.AddressPointX!=null &&
+           // וגם מרחק בין שתי החפצים הגיוני
+           //( לא סופי ולא נכון הוא לצורך דוגמא Distance=="20")
+           GetDistanceAndDuration(product.AddressPointX,product.AddressPointY
+           ,p.AddressPointX,p.AddressPointY).Distance=="20")&&
+
+           //בדיקת ערכי הפרמטרים למוצר ע"י שליחה לפונקציה שעוברת על 
+           //ערכי הפרמטרים הקשורים למוצר ובודקת האם יש התאמה בינהם
            checkTheParameters(productId, product.ProductId)
-            ).ToList().ForEach(d => matches.Add(d));
-            return null;
+
+            //matchesDAL במקרה שכל התנאים הנ"ל התקיימו החפץ נוסף ל 
+            ).ToList().ForEach(d => matchesDAL.Add(d));
+
+            //קריאה לפונקציה ששולחת מיילים לבעלי החפצים שביקשו לקבל עכונים של "נמצאה התאמה חדשה"
+            checkIfSendEmails(matchesDAL);
+
+            // רשימה של אובייקטים מסוג מחלקה שיצרנו- list matches ל matchesDAL list  המרת 
+            //המתאימה לנתונים שהתאמה אמורה להחזיר
+            matchesDAL.ForEach(d => matches.Add(new ClassForMatches() {
+                ProductId=d.ProductId,
+                ProductDescription=d.ProductDescription,
+                ProductName=d.ProductName,
+                AddressPointX=d.AddressPointX,
+                AddressPointY=d.AddressPointY,
+                AddressDescription=d.AddressDescription,
+                UserName=d.User.UserFullName,
+                CategoryName=d.Category.CategoryName,
+                DateFound=d.DateFound,
+                LostOrFound=d.LostOrFound,
+                UserEmail=d.User.UserEmail,
+                UserPhone=d.User.UserPhone
+            }));
+            return matches;
         }
 
+        //פונקציה שעוברת על ההתאמות החדשות ובודקת על כל התאמה האם מוגדר סוכן חכם על הפריט 
+        //'ואם כן שולחת מייל לבעל החפץ עם ההודעה 'נמצאה התאמה חדשה למוצרך
+        private static void checkIfSendEmails(List<DAL.Product> matches)
+        {
+            matches.ForEach(m =>
+            {
+                if(m.CleverAgent==true)
+                {
+                    string text; string subject; string mailToSend;
+                    if (m.LostOrFound == true)
+                        subject = " 'EasyToFind'  מצא התאמה חדשה לאבדתך";
+                    else subject = " 'EasyToFind'  מצא התאמה חדשה למציאתך";
+                    text = "  'EasyToFind' לצפייה בהתאמה כנס לאתר";
+                    if(m.User.UserEmail!=null)
+                    {
+                        mailToSend = m.User.UserEmail;
+                        SendEmail.SendEmail1(text, subject, mailToSend);
+                    }
+                }
+            });
+        }
+        //פונקציה שמקבלת שתי מוצרים ובודקת האם ערכי הפרמטרים שלהם זהים 
+        //פעמיים ומוצאת לכל מוצר את הפרמטרים parameterOfProduct כלומר עוברת בלולאה על טבלת 
+        // השייכים אליו ויוצרת מהם רשימה
+        //שווה value of the ParameterOfProduct,אח"כ משווה בין שתי הרשימות ובודקת האם ה
         private static bool checkTheParameters(int productId1, int productId2)
         {
             List<DAL.ParameteOfProduct> p1 = db.ParameteOfProducts.Where(p => p.ProductId == productId1).ToList();
@@ -224,44 +322,29 @@ namespace BLL
             }
             return true;
         }
-        //private static List<string> GetDistanceAndDuration()
-        //{
-        //    var distance = "";
-        //    var duration = "";
-        //    try
-        //    {
-        //        var url = $"https://maps.googleapis.com/maps/api/distancematrix/json?origins={selector.Address.Latitude},{selector.Address.Longtitude}&destinations={business.Address.Latitude},{business.Address.Longtitude}&key={GlobalService.KEY}&language=he";
-        //        var request = WebRequest.Create(url);
-        //        request.ContentType = "application/json; charset=utf-8";
-        //        var response = (HttpWebResponse)request.GetResponse();
-        //        using (var sr = new StreamReader(response.GetResponseStream()))
-        //        {
-        //            dynamic result = JsonConvert.DeserializeObject(sr.ReadToEnd());
-        //            var details = result["rows"][0]["elements"][0];
-        //            distance = details["distance"]["text"];
-        //            duration = details["duration"]["text"];
-        //        }
-        //    }
-        //    catch (Exception) { }
-        //    return new List<string> { distance, duration };
-        //}
-        
-        private static void getDes()
+        //פונקציה שמקבלת שתי נקודות על המפה ומחזירה מרחק
+        public static GeographicData GetDistanceAndDuration(double? fromX, double? fromY, double? toX, double? toY)
         {
-            string url = @"https://maps.googleapis.com/maps/api/directions/json?origin=75+9th+Ave+New+York,+NY&destination=MetLife+Stadium+1+MetLife+Stadium+Dr+East+Rutherford,+NJ+07073&key=YOUR_API_KEY";
+            var gr = new GeographicData();
+            try
+            {
+                var url = $"https://maps.googleapis.com/maps/api/distancematrix/json?origins={fromX},{fromY}&destinations={toX},{toY}&key=AIzaSyB6XGmiIhsaoXzLTu611HLGNL74ZEWIaSE&language=he";
+                var request = WebRequest.Create(url);
+                request.ContentType = "application/json; charset=utf-8";
+                var response = (HttpWebResponse)request.GetResponse();
+                using (var sr = new StreamReader(response.GetResponseStream()))
+                {
+                    var res = sr.ReadToEnd();
+                    JavaScriptSerializer json_serializer = new JavaScriptSerializer();
+                    dynamic result = json_serializer.DeserializeObject(res);
+                    var details = result["rows"][0]["elements"][0];
 
-            WebRequest request = WebRequest.Create(url);
-
-            WebResponse response = request.GetResponse();
-
-            Stream data = response.GetResponseStream();
-
-            StreamReader reader = new StreamReader(data);
-
-            // json-formatted string from maps api
-            string responseFromServer = reader.ReadToEnd();
-
-            response.Close();
+                    gr.Distance = details["distance"]["text"];
+                    gr.Duration = details["duration"]["text"];
+                }
+            }
+            catch (Exception) { }
+            return gr;
         }
     }
 }
