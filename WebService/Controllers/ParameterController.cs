@@ -47,6 +47,12 @@ namespace WebService.Controllers
         public IHttpActionResult tryr(double fromX, double fromY, double toX, double toY)
         {
             var l = BLL.ProductFunctions.GetDistanceAndDuration(fromX,fromY,toX,toY);
+            int space1 = l.Duration.IndexOf(' ');
+            int space2 = l.Duration.IndexOf(' ', space1 + 1);
+            if (space2 < 0)
+                space2 = l.Duration.IndexOf("", space1 + 1);
+            string firstPart = l.Duration.Substring(0, space1);
+            string secondPart = l.Duration.Substring(space1 + 1, space2);
             if (l != null)
                 return Ok(l);
             return BadRequest("delete parametr failed");

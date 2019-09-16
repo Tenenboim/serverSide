@@ -20,6 +20,7 @@ namespace BLL.customClasses
         public bool LostOrFound { get; set; }
         public string UserPhone { get; set; }
         public string UserEmail { get; set; }
+        public string UserAddress { get; set; }
 
     }
 }

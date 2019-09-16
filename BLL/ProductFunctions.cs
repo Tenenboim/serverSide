@@ -16,7 +16,7 @@ namespace BLL
     {
         static Entities db = new Entities();
      
-        public static int FunctionsToaddNewProduct(DTO.ProductDTO productdDto
+        public static ProductDTO FunctionsToaddNewProduct(DTO.ProductDTO productdDto
             , List<DTO.ParameterOfProductDTO> ParameterOfProductAreExistDto,
             List<DTO.ParameterDTO> NewParametersDto,
             List<DTO.ParameterOfProductDTO> NewParameterOfProductDto)
@@ -55,7 +55,7 @@ namespace BLL
             //שליחה לפונקציה המוסיפה פרמטרים חדשים לטבלת פרמטר
             //parameterOfProduct וכן מוסיפה רשומות חדשות לטבלת 
             AddNewParametersAndNewParametersOfProduct(NewParametersDAL, NewParameterOfProductDAL, productId);
-            return productId;
+            return BLL.Convertions.ProductToDto(productdDAL);
         }
         //הוספת פרמטרים חדשים לטבלת פרמטרים וכן לטבלת פרמטרים למוצר 
         private static void AddNewParametersAndNewParametersOfProduct(List<Parameter> newParametersDAL,
@@ -100,10 +100,15 @@ namespace BLL
         //הוספת המוצר
         public static void addNewProduct(DAL.Product product)
         {
+            product.User = db.Users.First(c => c.UserId == product.UserId);
+            product.Category = db.Categories.First(c => c.CategoryId == product.CategoryId);
             db.Products.Add(product);
             db.SaveChanges();
 
         }
+
+       
+
         public static ProductDTO FunctionsToEditProduct(ProductDTO product, List<ParameterOfProductDTO> 
             parameterOfProductAreExist,
             List<ParameterDTO> newParameters, List<ParameterOfProductDTO> newParameterOfProduct,
@@ -277,10 +282,52 @@ namespace BLL
                 DateFound=d.DateFound,
                 LostOrFound=d.LostOrFound,
                 UserEmail=d.User.UserEmail,
-                UserPhone=d.User.UserPhone
+                UserPhone=d.User.UserPhone,
+                UserAddress=d.User.UserAddress
             }));
             return matches;
         }
+        public static List<ClassForMatches> searchMatchesWithoutParameters(ProductDTO product)
+        {
+
+            DAL.Product p = BLL.Convertions.ProductDtoToDAL(product);
+            List<DAL.Product> matchesDAL = new List<Product>();
+            List<BLL.customClasses.ClassForMatches> matches = new List<BLL.customClasses.ClassForMatches>();
+            matchesDAL = db.Products.Where(d => d.LostOrFound == p.LostOrFound&&d.WasDone==false).ToList();
+            //אם הוא לא בחר כל הקטגוריות
+            if (p.CategoryId != 1)
+                matchesDAL = matchesDAL.Where(d => d.CategoryId == p.CategoryId || d.Category.ParentId == p.CategoryId).ToList();
+            if(p.DateFound!=null)
+               matchesDAL = matchesDAL.Where(d => d.DateFound >= p.DateFound).ToList();
+                    
+            //   if(p.AddressPointX!=null)
+            //   {
+            //    BLL.customClasses.GeographicData g = new GeographicData();
+            //    int minutes;
+            //    matchesDAL = matchesDAL.Where(d => d.AddressPointX != null).ToList();
+            //    matchesDAL.ForEach(d => g = GetDistanceAndDuration(p.AddressPointX, p.AddressPointY, d.AddressPointX, d.AddressPointY)
+            //        minutes = g.Duration.
+            //}
+            
+
+            matchesDAL.ForEach(d => matches.Add(new ClassForMatches()
+            {
+                ProductDescription = d.ProductDescription,
+                ProductName = d.ProductName,
+                AddressPointX = d.AddressPointX,
+                AddressPointY = d.AddressPointY,
+                AddressDescription = d.AddressDescription,
+                UserName = d.User.UserFullName,
+                CategoryName = d.Category.CategoryName,
+                DateFound = d.DateFound,
+                LostOrFound = d.LostOrFound,
+                UserEmail = d.User.UserEmail,
+                UserPhone = d.User.UserPhone,
+                UserAddress = d.User.UserAddress
+            }));
+            return matches;
+        }
+
 
         //פונקציה שעוברת על ההתאמות החדשות ובודקת על כל התאמה האם מוגדר סוכן חכם על הפריט 
         //'ואם כן שולחת מייל לבעל החפץ עם ההודעה 'נמצאה התאמה חדשה למוצרך

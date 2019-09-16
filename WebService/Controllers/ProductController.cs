@@ -27,8 +27,8 @@ namespace WebService.Controllers
             List<DTO.ParameterDTO> NewParameters = productAndListsOfParameters["NewParameters"].ToObject<List<ParameterDTO>>();
 
             List<DTO.ParameterOfProductDTO> NewParameterOfProduct = productAndListsOfParameters["NewParameterOfProduct"].ToObject<List<ParameterOfProductDTO>>();
-            int productId = BLL.ProductFunctions.FunctionsToaddNewProduct(product, ParameterOfProductAreExist, NewParameters, NewParameterOfProduct);
-            return Ok(productId);
+            ProductDTO p = BLL.ProductFunctions.FunctionsToaddNewProduct(product, ParameterOfProductAreExist, NewParameters, NewParameterOfProduct);
+            return Ok(p);
         }
         [Route("EditProduct")]
         [HttpPost]
@@ -45,7 +45,7 @@ namespace WebService.Controllers
             product = BLL.ProductFunctions.FunctionsToEditProduct(product, ParameterOfProductAreExist, NewParameters, NewParameterOfProduct, parametersOfCategoryWithParametersOfProduct);
             if (product != null)
             {
-                return Ok(product.ProductId);
+                return Ok(product);
             }
             return BadRequest("Edit Product failed");
         }
@@ -78,8 +78,24 @@ namespace WebService.Controllers
                 return Ok(u);
             return BadRequest("there aren't Founds!"); ;
         }
+        [Route("getMatches")]
+        [HttpGet]
+        public IHttpActionResult getMatches(int ProductId)
+        {
+            List<BLL.customClasses.ClassForMatches> m = BLL.ProductFunctions.search(ProductId);
+            if (m != null)
+                return Ok(m);
+            return BadRequest("matches werent found");
+        }
 
-    
-        
+        [Route("getMatchesWithoutParameters")]
+        [HttpPost]
+        public IHttpActionResult getMatchesWithoutParameters(ProductDTO product)
+        {
+            List<BLL.customClasses.ClassForMatches> m = BLL.ProductFunctions.searchMatchesWithoutParameters(product);
+            if (m != null)
+                return Ok(m);
+            return BadRequest("matches werent found");
+        }
     }
 }
